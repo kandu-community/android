@@ -1,0 +1,50 @@
+package com.inomma.kandu.server.request;
+
+import org.json.JSONException;
+
+import android.content.Context;
+
+import com.inomma.kandu.model.UserForm;
+import com.inomma.kandu.server.Request;
+import com.inomma.kandu.server.ResponseHandler;
+import com.inomma.kandu.server.responses.GetSubmissionsResponse;
+
+public class GetSubmissionsRequest extends Request<GetSubmissionsResponse>{
+
+	private String formUrl;
+	private String searchText;
+	private UserForm userForm;
+	public GetSubmissionsRequest(Context context,UserForm userForm,String formUrl,ResponseHandler<GetSubmissionsResponse> handler) {
+		super(handler,context);
+		this.formUrl = formUrl;
+		this.userForm = userForm;
+	}
+	
+	public GetSubmissionsRequest(Context context,UserForm userForm,String formUrl,String searchText,ResponseHandler<GetSubmissionsResponse> handler) {
+		super(handler,context);
+		this.searchText=searchText;
+		this.formUrl = formUrl;
+		this.userForm = userForm;
+
+	}
+
+
+	@Override
+	protected GetSubmissionsResponse handleResponse(String response)
+			throws JSONException {
+		return new GetSubmissionsResponse(response,userForm);
+	}
+
+	@Override
+	public String getAction() {
+		if(searchText==null){
+			return formUrl;
+		}
+		else{
+			return formUrl+"/search?query="+searchText;
+		}
+	}
+
+	
+
+}

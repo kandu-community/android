@@ -1,0 +1,64 @@
+package com.inomma.kandu.ui.views;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import com.inomma.kandu.model.FormItem;
+
+public class FormItemSingleChoiceView extends FormItemView
+{
+	
+	private Spinner spinner;
+
+	public FormItemSingleChoiceView(Context context)
+	{
+		super(context);
+	}
+	
+	public FormItemSingleChoiceView(Context context, FormItem item)
+	{
+		super(context, item);
+	}
+
+	public FormItemSingleChoiceView(Context context, AttributeSet attrs)
+	{
+		super(context, attrs);
+	}
+
+	public FormItemSingleChoiceView(Context context, AttributeSet attrs, int defStyle)
+	{
+		super(context, attrs, defStyle);
+	}
+
+	@Override
+	protected void fillContent(Context context)
+	{
+		super.fillContent(context);
+		spinner = new Spinner(context);
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, item.getChoices());
+		spinner.setAdapter(dataAdapter);
+		
+		addView(spinner);
+		
+	}
+
+	@Override
+	public void setValue(Object value)
+	{
+		
+	}
+
+	@Override
+	public String getValue()
+	{
+		return spinner.getSelectedItem().toString();
+	}
+
+	@Override
+	public String getValueString()
+	{
+		return getValue();
+	}
+}

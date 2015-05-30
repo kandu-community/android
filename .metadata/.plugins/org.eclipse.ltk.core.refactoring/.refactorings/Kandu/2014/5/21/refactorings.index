@@ -1,0 +1,7 @@
+1400598058879	Encapsulate field 'category'
+1400598122482	Encapsulate field 'isEditable'
+1400599274972	Rename type 'UserFormCategory'
+1400605958656	Encapsulate field 'hint'
+1400659573013	Encapsulate field 'inlineForms'
+1400664625863	Encapsulate field 'isInline'
+1400665674966	Encapsulate field 'linkTo'

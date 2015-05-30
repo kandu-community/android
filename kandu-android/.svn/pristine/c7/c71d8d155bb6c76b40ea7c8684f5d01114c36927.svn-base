@@ -1,0 +1,21 @@
+package com.inomma.kandu;
+
+import com.inomma.SharedPreferencesHelper;
+import com.inomma.Toaster;
+import com.inomma.utils.NetworkUtils;
+import com.inomma.utils.location.AdvancedLocationManager;
+
+import android.app.Application;
+
+public class KanduApplication extends Application
+{
+	@Override
+	public void onCreate()
+	{
+		Toaster.init(this);
+		AdvancedLocationManager.init(this);
+		NetworkUtils.init(this);
+		SharedPreferencesHelper.init(this);
+		super.onCreate();
+	}
+}

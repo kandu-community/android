@@ -1,0 +1,59 @@
+package com.inomma.kandu.server;
+
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.inomma.kandu.server.request.PostRequest;
+import com.inomma.utils.HttpHelper;
+import com.inomma.utils.HttpHelper.JsonResponseHandler;
+
+/**
+ * Android AsyncTask implementation for sending asynchronous requests
+ * 
+ * @author Narek Gevorgyan
+ * 
+ */
+@SuppressWarnings("rawtypes")
+public class MainSender {
+
+	public static MainSender instance = new MainSender();
+	public static final String BASE_URL = "http://inomma.webfactional.com";
+
+	public String token;
+
+	private MainSender() {
+
+	}
+
+	public void execute(final Request<? extends Response> request) {
+		
+		HttpHelper helper = new HttpHelper(BASE_URL + request.getAction());
+		HashMap<String, String> params = request.getParams();
+		helper.setParams(params);
+		
+		if (token != null) {
+			helper.setHeader("Authorization", "Token " + token);
+		}
+		JsonResponseHandler handler = new JsonResponseHandler()
+		{
+			@Override
+			public void onSuccess(JSONArray response)
+			{
+				request.handle(response);
+			}
+			
+			@Override
+			public void onSuccess(JSONObject response)
+			{
+				request.handle(response);
+			}
+		};
+		if (request.getMethod().equals("GET"))
+			helper.httpGetAsync(handler);
+		else
+			helper.httpPostAsync(((PostRequest) request).getBody(), handler);
+	}
+}

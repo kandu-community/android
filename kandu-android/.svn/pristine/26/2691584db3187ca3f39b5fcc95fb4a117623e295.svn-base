@@ -1,0 +1,41 @@
+package com.inomma.kandu.server.request;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.inomma.kandu.server.ResponseHandler;
+import com.inomma.kandu.server.responses.GetTokenResponse;
+
+public class GetTokenRequest extends PostRequest<GetTokenResponse>{
+
+	public GetTokenRequest(String username,String password,ResponseHandler<GetTokenResponse> handler) {
+		super(handler);
+		JSONObject body = new JSONObject();
+		try
+		{
+			body.put("username", username);
+			body.put("password", password);
+			setBody(body);
+		} catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected GetTokenResponse handleResponse(Object response)
+			throws JSONException {
+		return new GetTokenResponse(response);
+	}
+
+	@Override
+	public String getAction() {
+		return "/api/get-token/";
+	}
+	
+	@Override
+	public String getMethod() {
+		return "POST";
+	}
+
+}

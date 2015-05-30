@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;com.inomma.kandu.model.Form.cacheSubmissionsOffline&apos; in &apos;com.inomma.kandu.model.Form&apos;&#x0A;- Original project: &apos;Kandu&apos;&#x0A;- Original element: &apos;com.inomma.kandu.model.Form.cacheSubmissionsOffline&apos;&#x0A;- Getter method name: &apos;isCacheSubmissionsOffline&apos;&#x0A;- Setter method name: &apos;setCacheSubmissionsOffline&apos;&#x0A;- Field visibility: &apos;public&apos;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;cacheSubmissionsOffline&apos;" flags="589830" getter="isCacheSubmissionsOffline" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;com.inomma.kandu.model{Form.java[Form^cacheSubmissionsOffline" insertion="19" setter="setCacheSubmissionsOffline" stamp="1427277736763" version="1.0" visibility="1"/>
+</session>

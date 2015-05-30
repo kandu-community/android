@@ -1,0 +1,45 @@
+package com.inomma.kandu.model;
+
+import java.io.Serializable;
+
+public class UserForm implements Serializable {
+	
+	private static final long serialVersionUID = -5014607772196175837L;
+	private String url;
+	private Form form;
+	private String visibleName;
+	private String key;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Form getForm() {
+		return form;
+	}
+
+	public void setForm(Form form) {
+		this.form = form;
+	}
+
+	public String getVisibleName() {
+		return visibleName;
+	}
+
+	public void setVisibleName(String visibleName) {
+		this.visibleName = visibleName;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+}

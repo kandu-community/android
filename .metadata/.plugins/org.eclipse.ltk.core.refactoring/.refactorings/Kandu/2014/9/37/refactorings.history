@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;com.inomma.kandu.model.FormSubmission.submissionJson&apos; in &apos;com.inomma.kandu.model.FormSubmission&apos;&#x0A;- Original project: &apos;Kandu&apos;&#x0A;- Original element: &apos;com.inomma.kandu.model.FormSubmission.submissionJson&apos;&#x0A;- Getter method name: &apos;getSubmissionJson&apos;&#x0A;- Setter method name: &apos;setSubmissionJson&apos;&#x0A;- Field visibility: &apos;public&apos;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;submissionJson&apos;" flags="589830" getter="getSubmissionJson" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;com.inomma.kandu.model{FormSubmission.java[FormSubmission^submissionJson" insertion="18" setter="setSubmissionJson" stamp="1410264603724" version="1.0" visibility="1"/>
+</session>

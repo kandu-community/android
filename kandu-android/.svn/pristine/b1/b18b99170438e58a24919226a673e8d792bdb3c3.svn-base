@@ -1,0 +1,88 @@
+package com.inomma.kandu.model;
+
+import java.io.Serializable;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.inomma.kandu.Utils;
+
+public class FormItem implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8602462425924213507L;
+	private String name;
+	private String visibleName;
+	private String key;
+	private FormItemType formItemType;
+	private boolean isRequired;
+
+	private String[] choices;
+
+	public FormItem(JSONObject jsonObject) throws JSONException {
+		this.formItemType = FormItemType.getWithKey(jsonObject
+				.getString("type"));
+		this.name = jsonObject.getString("name");
+		this.key = name.replaceAll(" ", "_");
+		this.visibleName = name.substring(0, 1).toUpperCase()
+				+ name.substring(1);
+		if (jsonObject.has("choices")) {
+
+			JSONArray choices = jsonObject.getJSONArray("choices");
+			this.choices = Utils.stringArrayFromJson(choices);
+		}
+		if (jsonObject.has("required"))
+			this.isRequired = jsonObject.getBoolean("required");
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public FormItemType getFormItemType() {
+		return formItemType;
+	}
+
+	public void setFormItemType(FormItemType formItemType) {
+		this.formItemType = formItemType;
+	}
+
+	public boolean isRequired() {
+		return isRequired;
+	}
+
+	public void setRequired(boolean isRequired) {
+		this.isRequired = isRequired;
+	}
+
+	public String getVisibleName() {
+		return visibleName;
+	}
+
+	public void setVisibleName(String visibleName) {
+		this.visibleName = visibleName;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public String[] getChoices() {
+		return choices;
+	}
+
+	public void setChoices(String[] choices) {
+		this.choices = choices;
+	}
+}

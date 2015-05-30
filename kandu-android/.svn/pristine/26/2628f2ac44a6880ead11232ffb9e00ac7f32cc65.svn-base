@@ -1,0 +1,58 @@
+package com.inomma.kandu.ui.views;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.inomma.kandu.model.FormItem;
+
+public abstract class FormItemView extends LinearLayout
+{
+
+	protected FormItem item;
+	protected TextView label;
+	
+	public FormItemView(Context context, FormItem item)
+	{
+		super(context);
+		this.item = item;
+		fillContent(context);
+	}
+	
+	public FormItemView(Context context)
+	{
+		super(context);
+		fillContent(context);
+	}
+
+	public FormItemView(Context context, AttributeSet attrs)
+	{
+		super(context, attrs);
+		fillContent(context);
+	}
+
+	public FormItemView(Context context, AttributeSet attrs, int defStyle)
+	{
+		super(context, attrs, defStyle);
+		fillContent(context);
+	}
+
+	protected void fillContent(Context context)
+	{
+		setOrientation(VERTICAL);
+		label = new TextView(context);
+		label.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		addView(label);
+		setTag(item);
+	}
+	
+	public void setText(CharSequence text)
+	{
+		label.setText(text);
+	}
+	
+	public abstract void setValue(Object value);
+	public abstract Object getValue();
+	public abstract String getValueString();
+}

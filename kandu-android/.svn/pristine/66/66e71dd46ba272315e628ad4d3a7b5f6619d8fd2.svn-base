@@ -1,0 +1,81 @@
+package com.inomma.kandu.ui.views;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import android.content.Context;
+import android.util.AttributeSet;
+
+import com.inomma.kandu.model.FormItem;
+import com.inomma.kandu.ui.views.MultiSpinner.MultiSpinnerListener;
+
+public class FormItemMultiChoiceView extends FormItemView
+{
+
+	private MultiSpinner multiSpinner;
+	
+	public FormItemMultiChoiceView(Context context)
+	{
+		super(context);
+	}
+	
+	public FormItemMultiChoiceView(Context context, FormItem item)
+	{
+		super(context, item);
+	}
+
+	public FormItemMultiChoiceView(Context context, AttributeSet attrs)
+	{
+		super(context, attrs);
+	}
+
+	public FormItemMultiChoiceView(Context context, AttributeSet attrs, int defStyle)
+	{
+		super(context, attrs, defStyle);
+	}
+
+	@Override
+	protected void fillContent(Context context)
+	{
+		super.fillContent(context);
+		multiSpinner = new MultiSpinner(context);
+		multiSpinner.setItems(Arrays.asList(item.getChoices()), "All Selected", new MultiSpinnerListener()
+		{
+
+			@Override
+			public void onItemsSelected(boolean[] selected)
+			{
+
+			}
+		});
+		
+		addView(multiSpinner);
+		
+	}
+
+	@Override
+	public void setValue(Object value)
+	{
+		
+	}
+
+	@Override
+	public Object getValue()
+	{
+		boolean[] state = multiSpinner.getState();
+		ArrayList<String> results = new ArrayList<String>();
+		String[] choices = item.getChoices();
+		for(int i = 0; i < state.length; i++)
+		{
+			if(state[i])
+				results.add(choices[i]);
+		}
+		return results.isEmpty() ? null : results;
+	}
+
+	@Override
+	public String getValueString()
+	{
+		return null;
+	}
+}

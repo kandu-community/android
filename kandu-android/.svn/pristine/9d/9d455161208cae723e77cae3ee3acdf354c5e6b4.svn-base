@@ -1,0 +1,13 @@
+package com.inomma.kandu.server.responses;
+
+import org.json.JSONException;
+
+import com.inomma.kandu.server.Response;
+
+public class SubmitFormResponse extends Response {
+
+	public SubmitFormResponse(Object json) throws JSONException {
+		super(json);
+	}
+
+}

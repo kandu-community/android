@@ -1,0 +1,159 @@
+package com.inomma.kandu.model;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.android.gms.maps.model.LatLng;
+
+public class FormSubmission implements Serializable {
+
+	static final long serialVersionUID = 4971218580433025884L;
+	private Integer uniqueId;
+	private UserForm form;
+	private boolean isSubmitted = true;
+
+	private SmallFormSubmission smallFormSubmission;
+
+	private Map<String, SmallFormSubmission> inlineFormsSmallFormSubmissions = new HashMap<String, SmallFormSubmission>();
+
+	public FormSubmission(UserForm form) {
+		this.form = form;
+	}
+
+	public FormSubmission(UserForm form, JSONObject submissionJson)
+			throws JSONException {
+		this.form = form;
+		this.setSmallFormSubmission(new SmallFormSubmission(submissionJson,
+				this.form));
+		for (UserForm inline : this.form.getInlineForms()) {
+			SmallFormSubmission inlineFormSubmission = new SmallFormSubmission(
+					submissionJson.getJSONObject(inline.getKey()), inline);
+			inlineFormsSmallFormSubmissions.put(inline.getKey(),
+					inlineFormSubmission);
+		}
+	}
+
+	public FormSubmission() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public UserForm getForm() {
+		return form;
+	}
+
+	public void setForm(UserForm form) {
+		this.form = form;
+	}
+
+	@Override
+	public String toString() {
+		String ret = "";
+		if (form == null) {
+			return super.toString();
+		}
+		for (String string : form.getForm().getLabelFields()) {
+			ret += smallFormSubmission.getFormSubmissionItem(string).getValue()
+					+ ",";
+		}
+		if (!isSubmitted) {
+			ret = "NOT SUBMITTED: " + ret;
+		}
+		return ret;
+	}
+
+	public LatLng getCoordinates() {
+		try {
+			String coords = smallFormSubmission.getFormSubmissionItem(
+					form.getGpsItem().getKey()).getValue();
+			coords = coords.replaceAll("(\\[|\\])", "");
+			Double lat = Double.valueOf(coords.split(",")[0]);
+			Double lng = Double.valueOf(coords.split(",")[1]);
+			return new LatLng(lat, lng);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Integer getId() {
+		return smallFormSubmission.getId();
+	}
+
+	public boolean isSubmitted() {
+		return isSubmitted;
+	}
+
+	public void setSubmitted(boolean isSubmitted) {
+		this.isSubmitted = isSubmitted;
+	}
+
+	public SmallFormSubmission getSmallFormSubmission() {
+		return smallFormSubmission;
+	}
+
+	public void setSmallFormSubmission(SmallFormSubmission smallFormSubmission) {
+		this.smallFormSubmission = smallFormSubmission;
+	}
+
+	public SmallFormSubmission getInlineFormSubmission(String key) {
+		return this.inlineFormsSmallFormSubmissions.get(key);
+	}
+
+	public void putInlineSmallFormSubmission(String key,
+			SmallFormSubmission smallFormSubmission) {
+		this.inlineFormsSmallFormSubmissions.put(key, smallFormSubmission);
+	}
+
+	public Collection<SmallFormSubmission> getInlineFormSubmissions() {
+		return this.inlineFormsSmallFormSubmissions.values();
+	}
+
+	public JSONObject toJson() throws JSONException {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("mainFormSubmission", smallFormSubmission.toJson());
+		jsonObject.put("form", form.getKey());
+		if(this.uniqueId!=null){
+			jsonObject.put("uniqueKeyIdentifier", this.uniqueId);
+
+		}
+		JSONArray inlineArray = new JSONArray();
+		for (String key : inlineFormsSmallFormSubmissions.keySet()) {
+			SmallFormSubmission inlineFormSubmission = inlineFormsSmallFormSubmissions
+					.get(key);
+			inlineArray.put(inlineFormSubmission.toJson());
+		}
+		jsonObject.put("inlineSubmissions", inlineArray);
+		return jsonObject;
+	}
+
+	public void fromJson(JSONObject jsonObject) throws JSONException {
+		this.smallFormSubmission = new SmallFormSubmission()
+				.fromJson(jsonObject.getJSONObject("mainFormSubmission"));
+		this.form = UserFormsHolder.getInstance().getUserFormWithKey(
+				jsonObject.getString("form"));
+		JSONArray inlineArray = jsonObject.getJSONArray("inlineSubmissions");
+		for (int i = 0; i < inlineArray.length(); i++) {
+			SmallFormSubmission smallFormSubmission = new SmallFormSubmission();
+			smallFormSubmission.fromJson(inlineArray.getJSONObject(i));
+			inlineFormsSmallFormSubmissions.put(smallFormSubmission.getUserForm().getKey(), smallFormSubmission);
+		}
+		if(jsonObject.has("uniqueKeyIdentifier")){
+			this.uniqueId = jsonObject.getInt("uniqueKeyIdentifier");
+		}
+	}
+
+	public Integer getUniqueId() {
+		return uniqueId;
+	}
+
+	public void setUniqueId(int uniqueId) {
+		this.uniqueId = uniqueId;
+	}
+}

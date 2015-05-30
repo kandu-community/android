@@ -1,0 +1,35 @@
+package com.inomma.kandu.server.request;
+
+import java.util.Map;
+
+import org.json.JSONException;
+
+import com.inomma.kandu.server.ResponseHandler;
+import com.inomma.kandu.server.responses.SubmitFormResponse;
+
+public class SubmitFormRequest extends PostRequest<SubmitFormResponse>{
+	private String formUrl;
+	public SubmitFormRequest(String formUrl,Map<String,String> params,ResponseHandler<SubmitFormResponse> handler) {
+		super(handler);
+		if(params != null)
+			for(String key:params.keySet())
+				putParam(key, params.get(key));
+		this.formUrl = formUrl;
+	}
+
+	@Override
+	protected SubmitFormResponse handleResponse(Object response)
+			throws JSONException {
+		return new SubmitFormResponse(response);
+	}
+
+	@Override
+	public String getAction() {
+		return formUrl;
+	}
+	
+	@Override
+	public String getMethod() {
+		return "POST";
+	}
+}

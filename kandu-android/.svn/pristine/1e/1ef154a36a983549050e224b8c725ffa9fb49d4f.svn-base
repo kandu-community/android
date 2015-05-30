@@ -1,0 +1,116 @@
+package com.inomma.kandu.ui.activities;
+
+import com.inomma.kandu.R;
+import com.inomma.kandu.R.id;
+import com.inomma.kandu.R.layout;
+import com.inomma.kandu.R.menu;
+import com.inomma.kandu.model.Config;
+import com.inomma.kandu.model.UserForm;
+import com.inomma.kandu.model.UserFormsHolder;
+import com.inomma.kandu.server.Response;
+import com.inomma.kandu.server.ResponseHandler;
+import com.inomma.kandu.server.request.GetConfigRequest;
+import com.inomma.kandu.server.request.GetUserFormsRequest;
+import com.inomma.kandu.server.responses.GetConfigResponse;
+import com.inomma.kandu.server.responses.GetUserFormsResponse;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+
+	ViewGroup mainLayout;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		mainLayout = (ViewGroup)findViewById(R.id.main_layout);
+		findViewById(R.id.sync_button).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						//sync();
+
+					}
+				});
+	}
+
+//	protected void sync() {
+//		final ProgressDialog pd = ProgressDialog.show(this, "", "Syncing");
+//		new GetConfigRequest(this,new ResponseHandler<GetConfigResponse>() {
+//
+//			@Override
+//			public void handleResponse(GetConfigResponse response) {
+//				final Config config = response.getConfig();
+//				new GetUserFormsRequest(
+//						new ResponseHandler<GetUserFormsResponse>() {
+//
+//							@Override
+//							public void handleResponse(
+//									GetUserFormsResponse response) {
+//								UserFormsHolder.newInstance(config,
+//										response.getUserForms());
+//								pd.dismiss();
+//								runOnUiThread(new Runnable() {
+//									public void run() {
+//										syncFinished();
+//									}
+//								});
+//							}
+//
+//						}).execute();
+//
+//			}
+//		}).execute();
+//
+//	}
+
+	private void syncFinished() {
+		for(final UserForm userForm:UserFormsHolder.getInstance().getUserForms()){
+			LinearLayout linearLayout = new LinearLayout(this);
+			linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+			Button button = new Button(this);
+			button.setText(userForm.getVisibleName());
+			linearLayout.addView(button);
+			button.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(MainActivity.this, FillFormActivity.class);
+					intent.putExtra("userform", userForm);
+					startActivity(intent);
+				}
+			});
+			Button buttonEdit = new Button(this);
+			buttonEdit.setText("Edit "+userForm.getVisibleName());
+			linearLayout.addView(buttonEdit);
+			buttonEdit.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(MainActivity.this, SubmissionsActivity.class);
+					intent.putExtra("userform", userForm);
+					startActivity(intent);
+				}
+			});
+			mainLayout.addView(linearLayout);
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+}

@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_settings"
+    	android:visible="false"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+    
+        <item
+        android:id="@+id/backup"
+    	android:visible="true"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="Backup"/>
+         <item
+        android:id="@+id/import_from_file"
+    	android:visible="true"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="Import from file"/>
+           <item
+        android:id="@+id/submit_all"
+    	android:visible="true"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="Submit All"/>
+        
+
+</menu>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Kandu/res/raw/kandu_backup-1.txt&apos; to &apos;backup.txt&apos;" description="Rename resource &apos;kandu_backup-1.txt&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/raw/kandu_backup-1.txt" name="backup.txt" stamp="1422360063632" updateReferences="true"/>
+</session>

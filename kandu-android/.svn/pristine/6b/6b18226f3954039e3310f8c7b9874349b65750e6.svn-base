@@ -1,0 +1,63 @@
+package com.inomma.kandu.ui.views;
+
+import android.content.Context;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.util.AttributeSet;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+
+import com.inomma.kandu.model.FormItem;
+
+public class FormItemTextView extends FormItemView {
+
+	protected EditText editText;
+
+	public FormItemTextView(Context context) {
+		super(context);
+	}
+
+	public FormItemTextView(Context context, FormItem item) {
+		super(context, item);
+	}
+
+	public FormItemTextView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
+
+	public FormItemTextView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
+
+	@Override
+	protected void fillContent(Context context) {
+		super.fillContent(context);
+		editText = new EditText(context);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
+		editText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		editText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
+		editText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(item.getMaxLenght())});
+
+		if (item != null)
+			editText.setHint(item.getHint());
+		addView(editText);
+	}
+
+	@Override
+	public void setValue(Object value) {
+		editText.setText(value.toString());
+	}
+
+	@Override
+	public String getValue() {
+		String editTextValue = editText.getText().toString();
+		return "".equals(editTextValue) ? null : editTextValue;
+	}
+
+	@Override
+	public String getValueString() {
+		return getValue();
+	}
+}
