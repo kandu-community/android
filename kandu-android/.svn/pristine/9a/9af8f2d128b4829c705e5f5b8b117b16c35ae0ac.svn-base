@@ -1,7 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-       <item android:id="@+id/action_submit"
-          android:icon="@drawable/ic_action_save"
-          android:title="Submit"
-          android:showAsAction="always" />
-</menu>
