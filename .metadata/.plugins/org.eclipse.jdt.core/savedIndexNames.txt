@@ -6,7 +6,6 @@ INDEX VERSION 1.126+/Users/narekgevorgyan/Documents/Project/Eclipse workspaces/K
 2185349020.index
 175950344.index
 2500845366.index
-2285249092.index
 1779837200.index
 3880142479.index
 1167239263.index
@@ -14,7 +13,6 @@ INDEX VERSION 1.126+/Users/narekgevorgyan/Documents/Project/Eclipse workspaces/K
 1988863409.index
 1387371597.index
 349476274.index
-1538992397.index
 4267051430.index
 3401131843.index
 2169481557.index

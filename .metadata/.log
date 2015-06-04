@@ -2604,3 +2604,29 @@ org.eclipse.osgi.framework.internal.core.AbstractBundle$BundleStatusException
 	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2354)
 	at org.eclipse.core.internal.events.NotificationManager$NotifyJob.run(NotificationManager.java:40)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SESSION 2015-06-01 22:16:11.266 -----------------------------------------------
+eclipse.buildId=v22.6.2-1085508
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -keyring /Users/narekgevorgyan/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -keyring /Users/narekgevorgyan/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2015-06-02 10:09:40.953
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.jobs 2 2 2015-06-02 10:12:11.967
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.debug.internal.ui.DebugUIPlugin$8
+!SESSION 2015-06-04 11:31:59.209 -----------------------------------------------
+eclipse.buildId=v22.6.2-1085508
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -keyring /Users/narekgevorgyan/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -data /Users/narekgevorgyan/Documents/Project/Eclipse workspaces/Kandu -product com.android.ide.eclipse.adt.package.product -keyring /Users/narekgevorgyan/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.resources 2 10035 2015-06-04 11:32:01.958
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.core.net 1 0 2015-06-04 11:32:06.683
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
