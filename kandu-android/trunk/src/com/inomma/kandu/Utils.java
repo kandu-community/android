@@ -5,7 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,7 @@ import android.graphics.BitmapFactory;
 import com.inomma.kandu.model.FormListCategory;
 import com.inomma.kandu.model.FormListItem;
 import com.inomma.kandu.model.UserForm;
+import com.koushikdutta.async.Util;
 
 public class Utils {
 
@@ -34,6 +37,33 @@ public class Utils {
 			ret[i] = array.getString(i);
 		}
 		return ret;
+	}
+	
+	public static Map<String, String> mapFromJsonArray(JSONArray array) throws JSONException {
+		Map<String, String> map = new HashMap<String, String>();
+		
+		int len = array.length();
+		
+		for (int i = 0; i < len; i++) {
+			String text = array.getString(i);
+			String value = keyFromName(text);
+			map.put(value, text);
+		}
+		
+		return map;
+	}
+
+	public static Map<String, String> mapFromJsonObject(JSONObject object) throws JSONException {
+		Map<String, String> map = new HashMap<String, String>();
+		Iterator<String> values = object.keys();
+		
+		while(values.hasNext()) {
+			String value = (String) values.next();
+			String text = object.getString(value);
+			map.put(value, text);
+		}
+		
+		return map;
 	}
 
 	public static int getRandomUniqueNumber(Context c) {

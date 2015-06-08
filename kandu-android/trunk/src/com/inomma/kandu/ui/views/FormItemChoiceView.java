@@ -85,15 +85,33 @@ public abstract class FormItemChoiceView extends FormItemView {
 		}
 	}
 
-	protected int getChoiceIntex(String choice) {
-		int i = 0;
-		for (String toCheck : item.getChoices()) {
-			if (Utils.keyFromName(toCheck).equals(choice)) {
+	protected String getValueByText(String text) {
+		Map<String, String> choices = item.getChoices();
+		for (String value : choices.keySet()) {
+			if(text.equals(choices.get(value))) {
+				return value;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Index is 1-based to match widgets, which have None at 0
+	 * 
+	 * @param value
+	 * @return
+	 */
+	protected int getIndexByText(String text) {
+		Map<String, String> choices = item.getChoices();
+		
+		int i = 1;
+		for (String value : choices.keySet()) {
+			if(text.equals(choices.get(value))) {
 				return i;
 			}
 			i++;
 		}
+		
 		return 0;
 	}
-
 }

@@ -2,7 +2,9 @@ package com.inomma.kandu.ui.views;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,16 +42,19 @@ public class FormItemMultiChoiceView extends FormItemChoiceView {
 
 	@Override
 	protected void fillContent(Context context) {
+		Map<String, String> choices = item.getChoices();
+		final List<String> items = Arrays.asList((String[]) choices.values().toArray());
+		
 		super.fillContent(context);
 		multiSpinner = new MultiSpinner(context);
-		multiSpinner.setItems(Arrays.asList(item.getChoices()), "All Selected",
+		multiSpinner.setItems(items, "All Selected",
 				item.getHint(), new MultiSpinnerListener() {
 
 					@Override
 					public void onItemsSelected(boolean[] selected) {
 						List<String> selectedChoices = new ArrayList<String>();
 						int i = 0;
-						for (String choice : item.getChoices()) {
+						for (String choice : items) {
 							if (selected[i++]) {
 								selectedChoices.add(choice);
 							}
@@ -78,13 +83,13 @@ public class FormItemMultiChoiceView extends FormItemChoiceView {
 				jsonArray = new JSONArray(value.getValue());
 				for (int i = 0; i < jsonArray.length(); i++) {
 					String selection = jsonArray.getString(i);
-					multiSpinner.getState()[getChoiceIntex(selection)] = true;
+					multiSpinner.getState()[getIndexByText(selection)] = true;
 				}
 			} catch (JSONException e) {
 				try{
 					String[] values = value.getValue().split(",");
 					for (String selection: values) {
-						multiSpinner.getState()[getChoiceIntex(selection)] = true;
+						multiSpinner.getState()[getIndexByText(selection)] = true;
 					}
 				}
 				catch(Exception ex){
@@ -101,10 +106,11 @@ public class FormItemMultiChoiceView extends FormItemChoiceView {
 	public Object getValue() {
 		boolean[] state = multiSpinner.getState();
 		ArrayList<String> results = new ArrayList<String>();
-		String[] choices = item.getChoices();
+		String[] choices = (String[]) item.getChoices().values().toArray();
 		for (int i = 0; i < state.length; i++) {
-			if (state[i])
-				results.add(Utils.keyFromName(choices[i]));
+			if (state[i]) {
+				results.add(getValueByText(choices[i]));
+			}
 		}
 		return results.isEmpty() ? null : results;
 	}

@@ -3,6 +3,7 @@ package com.inomma.kandu.ui.views;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -19,6 +20,10 @@ import com.inomma.kandu.model.FormSubmissionItem;
 public class FormItemSingleChoiceView extends FormItemChoiceView {
 
 	private Spinner spinner;
+
+	public Spinner getSpinner() {
+		return spinner;
+	}
 
 	public FormItemSingleChoiceView(Context context) {
 		super(context);
@@ -41,12 +46,13 @@ public class FormItemSingleChoiceView extends FormItemChoiceView {
 	protected void fillContent(Context context) {
 		super.fillContent(context);
 		spinner = new Spinner(context);
-		List<String> choices = new ArrayList<String>(Arrays.asList(item
-				.getChoices()));
-		choices.add(0, "None");
+		Map<String, String> choices = item.getChoices();
+		
+		final List<String> items = new ArrayList<String>(choices.values());
+		items.add(0, "None");
 
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
-				android.R.layout.simple_spinner_dropdown_item, choices);
+				android.R.layout.simple_spinner_dropdown_item, items);
 		spinner.setAdapter(dataAdapter);
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -54,7 +60,7 @@ public class FormItemSingleChoiceView extends FormItemChoiceView {
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int pos,
 					long arg3) {
 				if (pos != 0)
-					onChoiceChanged(item.getChoices()[pos - 1]);
+					onChoiceChanged(items.get(pos - 1));
 
 			}
 
@@ -74,17 +80,18 @@ public class FormItemSingleChoiceView extends FormItemChoiceView {
 
 	@Override
 	public void setValue(FormSubmissionItem value) {
-		spinner.setSelection(getChoiceIntex(value.getValue()) + 1);
+		spinner.setSelection(getIndexByText(value.getValue()));
 	}
 
 	@Override
 	public String getValue() {
-		if (spinner.getSelectedItemPosition() != 0)
-			return Utils.keyFromName(spinner.getSelectedItem().toString());
-		else
+		if (spinner.getSelectedItemPosition() != 0) {
+			String value = getValueByText(spinner.getSelectedItem().toString());
+			return value;
+		} else {
 			return null;
+		}
 	}
-
 	
 	@Override
 	public String getValueString() {

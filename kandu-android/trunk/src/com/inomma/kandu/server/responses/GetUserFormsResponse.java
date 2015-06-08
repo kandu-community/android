@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.inomma.kandu.model.UserForm;
 import com.inomma.kandu.server.Response;
+import com.nostra13.universalimageloader.utils.L;
 
 public class GetUserFormsResponse extends Response{
 
@@ -24,6 +25,7 @@ public class GetUserFormsResponse extends Response{
 			userForm.setVisibleName(jsonObject.getString("verbose_name"));
 			userForm.setKey(jsonObject.getString("name"));
 			userForms.add(userForm);
+			L.d("form-url", userForm.getUrl());
 		}
 	}
 

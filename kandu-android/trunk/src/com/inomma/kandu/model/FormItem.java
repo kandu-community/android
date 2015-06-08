@@ -25,7 +25,7 @@ public class FormItem implements Serializable {
 	private boolean isRequired;
 	private String hint = "";
 	private String linkTo;
-	private String[] choices;
+	private Map<String, String> choices;
 	private int maxLenght = 100;
 	private Map<String, String> visibleWhen;
 	private boolean isLabelField = false;
@@ -38,9 +38,13 @@ public class FormItem implements Serializable {
 		this.visibleName = name.substring(0, 1).toUpperCase()
 				+ name.substring(1);
 		if (jsonObject.has("choices")) {
-
-			JSONArray choices = jsonObject.getJSONArray("choices");
-			this.choices = Utils.stringArrayFromJson(choices);
+			try {
+				JSONArray choices = jsonObject.getJSONArray("choices");
+				this.choices = Utils.mapFromJsonArray(choices);
+			} catch(JSONException e) {
+				JSONObject choices = jsonObject.getJSONObject("choices");
+				this.choices = Utils.mapFromJsonObject(choices);
+			}
 		}
 		if (jsonObject.has("required"))
 			this.isRequired = jsonObject.getBoolean("required");
@@ -110,11 +114,11 @@ public class FormItem implements Serializable {
 		this.key = key;
 	}
 
-	public String[] getChoices() {
+	public Map<String, String> getChoices() {
 		return choices;
 	}
 
-	public void setChoices(String[] choices) {
+	public void setChoices(Map<String, String> choices) {
 		this.choices = choices;
 	}
 

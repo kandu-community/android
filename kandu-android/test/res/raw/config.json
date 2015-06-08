@@ -1,0 +1,42 @@
+[
+   {
+      "name" : "Test Form",
+      "show_on_map" : true,
+      "category" : "Test",
+      "cache_submissions_offline" : false,
+      "user_groups" : [
+         "basic"
+      ],
+      "fields" : [
+         {
+            "choices" : [
+               "a",
+               "a b",
+               "a_b",
+               "a__b"
+            ],
+            "type" : "choice",
+            "max_length" : 200,
+            "name" : "Array config",
+            "required" : true,
+            "label_field" : true
+         },
+         {
+            "required" : true,
+            "name" : "Object config",
+            "label_field" : true,
+            "choices" : {
+               "a_b" : "A_B",
+               "a__b" : "A__B",
+               "a b" : "A B",
+               "a" : "A"
+            },
+            "type" : "choice",
+            "max_length" : 200
+         }
+      ],
+      "inlines" : [],
+      "is_editable" : true,
+      "is_creatable" : true
+   }
+]

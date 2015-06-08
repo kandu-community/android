@@ -236,4 +236,8 @@ public class FormView extends LinearLayout {
 		this.isInline = isInline;
 	}
 
+	public Map<String, FormItemView> getViews()
+	{
+		return views;
+	}
 }

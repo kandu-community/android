@@ -526,4 +526,8 @@ public class FillFormActivity extends Activity {
 		FlurryAgent.onEndSession(this);
 	}
 
+	public FormView getMainView() {
+		return mainView;
+	}
+
 }

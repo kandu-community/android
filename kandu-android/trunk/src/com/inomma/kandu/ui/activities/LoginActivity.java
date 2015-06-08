@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -182,6 +183,8 @@ public class LoginActivity extends Activity {
 			showProgress(true);
 			SharedPreferencesHelper.putStringData("server_url", serverUrl
 					.getText().toString());
+			Log.i("server_url is", serverUrl.getText().toString());
+
 			new GetTokenRequest(this, mEmail, mPassword,
 					new ResponseHandler<GetTokenResponse>() {
 
