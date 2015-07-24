@@ -6,10 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,8 +46,12 @@ import com.inomma.kandu.ui.views.FormItemAutocompleteView.ItemSelectedListener;
 public class SubmissionsActivity extends Activity {
 	private UserForm userForm;
 	private List<FormSubmission> formSubmissions = new ArrayList<FormSubmission>();
+	private int threshold = 6;
 	private FormItemAutocompleteView formItemAutocompleteView;
 	private ListView submissionsList;
+	private ProgressDialog pd;
+	private JSONArray jsonArray = new JSONArray();
+	private String formsErrorMsgsStr = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +168,7 @@ public class SubmissionsActivity extends Activity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
-					long arg3) {
+									long arg3) {
 				Intent intent = new Intent(SubmissionsActivity.this,
 						FillFormActivity.class);
 				intent.putExtra("userform", formSubmissions.get(pos).getForm());
@@ -221,6 +229,7 @@ public class SubmissionsActivity extends Activity {
 			backup();
 			return true;
 		case R.id.submit_all:
+			pd = ProgressDialog.show(this, "Submitting", "Please wait, process of submitting can take some time!");
 			submitAll();
 			return true;
 
@@ -242,41 +251,89 @@ public class SubmissionsActivity extends Activity {
 	}
 
 	int jobCount;
+	int formsProcessed = 0;
 
 	private void submitAll() {
 		if (userForm != null) {
 			return;
 		}
 		jobCount = formSubmissions.size();
-		final int allCount = jobCount;
-		final ProgressDialog pd = ProgressDialog.show(this, "", "Submitting");
-		for (FormSubmission formSubmission : formSubmissions) {
-			new FormSubmitter(formSubmission, this,
+		int goupto = (formSubmissions.size() > threshold) ? threshold : formSubmissions.size();
+		processForms(goupto);
+
+	}
+
+	private void processForms(int goupto) {
+		for (int i = 0; i < goupto; i++) {
+			FormSubmission formSubmission = formSubmissions.get(i);
+
+			// send form to server
+			FormSubmitter formSubmitter = new FormSubmitter(formSubmission, this,
 					new FormSubmissionListener() {
 
 						@Override
 						public void formSubmitted(String errorMessage,
-								FormSubmission formSubmission, Integer id) {
-							if (errorMessage == null) {
-								if (formSubmission != null
-										&& formSubmission.getId() == null
-										&& formSubmission.getUniqueId() != null) {
-									FormCacheManager.getInstance()
-											.deleteFromCache(formSubmission);
-									;
-									pd.setMessage("Submitting: "+(allCount-jobCount)+"/"+allCount);
+												  FormSubmission formSubmission, Integer id) {
+							if (formSubmission != null
+									&& formSubmission.getId() == null
+									&& formSubmission.getUniqueId() != null) {
 
+								formSubmissions.remove(formSubmission);
+								formsProcessed++;
+								jobCount--;
+								pd.setMessage(jobCount + " remaining");
+								if (formsProcessed >= threshold) {
+									formsProcessed = 0;
+									int goupto = (formSubmissions.size() > threshold) ? threshold : formSubmissions.size();
+									processForms(goupto);
 								}
-							}
-							if (--jobCount == 0) {
-								
-								loadSavedForms();
-								pd.dismiss();
-								return;
+
+								if (errorMessage != null) {
+									formsErrorMsgsStr = formsErrorMsgsStr + formSubmission + ":\n" + errorMessage + "\n";
+									try {
+										JSONObject formSubmissionJson = null;
+										formSubmissionJson = formSubmission.toJson();
+										jsonArray.put(formSubmissionJson);
+
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+
+								if (jobCount <= 0) {
+									pd.dismiss();
+									//replace saved froms with fromsWithError in cache
+									// show errors in alert
+									if (formsErrorMsgsStr != null && !formsErrorMsgsStr.isEmpty()) {
+										new AlertDialog.Builder(SubmissionsActivity.this)
+												.setTitle("Errors")
+												.setMessage("There are some errors in forms, Kindly correct them: \n" + formsErrorMsgsStr)
+												.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+													public void onClick(DialogInterface dialog, int which) {
+														// continue with delete
+													}
+												})
+												.setIcon(android.R.drawable.ic_dialog_alert)
+												.show();
+									}
+
+									SharedPreferencesHelper.putStringData("cachedForms",
+											jsonArray.toString());
+
+									jsonArray = new JSONArray();
+									formsProcessed = 0;
+									formsErrorMsgsStr = "";
+
+									loadSavedForms();
+
+									return;
+								}
 							}
 						}
 
-					}).submitForm();
+					});
+
+			formSubmitter.submitForm();
 		}
 	}
 
