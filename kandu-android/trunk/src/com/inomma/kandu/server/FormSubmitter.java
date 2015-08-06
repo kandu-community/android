@@ -50,8 +50,7 @@ public class FormSubmitter {
 							return;
 						}
 						if (response.id == null) {
-							listener.formSubmitted("Server error",
-									formSubmission, null);
+							listener.formSubmitted("Server error: "+response.getJsonObject(),formSubmission, null);
 							return;
 						}
 						if (formSubmission.getInlineFormSubmissions().size() > 0) {
