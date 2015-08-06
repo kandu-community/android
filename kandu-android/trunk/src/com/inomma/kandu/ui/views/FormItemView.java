@@ -89,6 +89,6 @@ public abstract class FormItemView extends LinearLayout {
 	}
 	
 	public boolean showDefaultValue(){
-		return false	;
+		return false;
 	}
 }

@@ -25,7 +25,8 @@ public class FormSubmitter {
 	private FormSubmissionListener listener;
 
 	public static interface FormSubmissionListener {
-		void formSubmitted(String errorMessage,FormSubmission formSubmission, Integer id);
+		void formSubmitted(String errorMessage, FormSubmission formSubmission,
+				Integer id);
 	}
 
 	public FormSubmitter(FormSubmission formSubmission, Context context,
@@ -43,19 +44,22 @@ public class FormSubmitter {
 
 					@Override
 					public void handleResponse(SubmitFormResponse response) {
-						if(response==null){
-							listener.formSubmitted("Server error",formSubmission, null);
+						if (response == null) {
+							listener.formSubmitted("Server error",
+									formSubmission, null);
 							return;
 						}
 						if (response.id == null) {
-							listener.formSubmitted("Server error",formSubmission, null);
+							listener.formSubmitted("Server error",
+									formSubmission, null);
 							return;
 						}
 						if (formSubmission.getInlineFormSubmissions().size() > 0) {
 							submitInlines(response.id);
 
 						} else {
-							listener.formSubmitted(null,formSubmission, response.id);
+							listener.formSubmitted(null, formSubmission,
+									response.id);
 						}
 
 					}
@@ -78,19 +82,22 @@ public class FormSubmitter {
 						@Override
 						public void handleResponse(SubmitFormResponse response) {
 							if (response.id != null) {
-								listener.formSubmitted(null,formSubmission, response.id);
+								listener.formSubmitted(null, formSubmission,
+										response.id);
 							} else {
-								listener.formSubmitted("Server error",formSubmission, null);
+								listener.formSubmitted("Server error",
+										formSubmission, null);
 							}
 						}
 
 					}).execute(context, "Submitting");
 		}
 	}
-boolean isRequesting;
-Integer submittedId;
-	public  Map<String, Object> getParams(
-			SmallFormSubmission smallFormSubmission) {
+
+	boolean isRequesting;
+	Integer submittedId;
+
+	public Map<String, Object> getParams(SmallFormSubmission smallFormSubmission) {
 		Map<String, Object> params = new HashMap<String, Object>();
 
 		for (FormSubmissionItem formSubmissionItem : smallFormSubmission
@@ -107,35 +114,35 @@ Integer submittedId;
 					Integer id = formSubmission.getId();
 					if (id != null) {
 						params.put(formSubmissionItem.getKey(), id);
-//					} else {
-//						isRequesting = true;
-//						//new Thread(new Runnable() {
-//							
-//							//@Override
-//						//	public void run() {
-//								// TODO Auto-generated method stub
-//								new FormSubmitter(formSubmission, context,
-//										new FormSubmissionListener() {
-//
-//											@Override
-//											public void formSubmitted(
-//													String errorMessage, Integer id) {
-//												submittedId = id;
-//												isRequesting = false;
-//											}
-//										}).submitForm();;
-//						//	}
-//					//	}).start();
-//					
-//						
-//						while (isRequesting) {
-//							try {
-//								Thread.sleep(10);
-//							} catch (InterruptedException e) {
-//								e.printStackTrace();
-//							}
-//						}
-					//	params.put(formSubmissionItem.getKey(), submittedId);
+						// } else {
+						// isRequesting = true;
+						// //new Thread(new Runnable() {
+						//
+						// //@Override
+						// // public void run() {
+						// // TODO Auto-generated method stub
+						// new FormSubmitter(formSubmission, context,
+						// new FormSubmissionListener() {
+						//
+						// @Override
+						// public void formSubmitted(
+						// String errorMessage, Integer id) {
+						// submittedId = id;
+						// isRequesting = false;
+						// }
+						// }).submitForm();;
+						// // }
+						// // }).start();
+						//
+						//
+						// while (isRequesting) {
+						// try {
+						// Thread.sleep(10);
+						// } catch (InterruptedException e) {
+						// e.printStackTrace();
+						// }
+						// }
+						// params.put(formSubmissionItem.getKey(), submittedId);
 
 					}
 

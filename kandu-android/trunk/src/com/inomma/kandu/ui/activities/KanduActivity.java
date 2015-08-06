@@ -468,7 +468,7 @@ public class KanduActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		new GetSubmissionsRequest(this, userForm, userForm.getUrl(), 100, map
+		new GetSubmissionsRequest(this, userForm, userForm.getUrl(), 10000, map
 				.getMyLocation().getLatitude(), map.getMyLocation()
 				.getLongitude(), new ResponseHandler<GetSubmissionsResponse>() {
 

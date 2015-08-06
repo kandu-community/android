@@ -109,7 +109,7 @@ public class LoginActivity extends Activity {
 		mEmailView.setText(SharedPreferencesHelper.getStringData("username",
 				""));
 		//mEmailView.setText("narek");
-		//mPasswordView.setText("9ijnbhu8");
+	//	mPasswordView.setText("9ijnbhu8");
 		;
 		if (SharedPreferencesHelper.getStringData("token", null) != null) {
 			startActivity(new Intent(LoginActivity.this, KanduActivity.class)); 

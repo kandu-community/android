@@ -30,6 +30,10 @@ public class Form implements Serializable {
 	private boolean cacheSubmissionsOffline;
 	public Form(JSONObject jsonObject) throws JSONException {
 		this.name = jsonObject.getString("name");
+		if(name.startsWith("Garden")){
+			
+			System.out.println("asd");
+		}
 		this.key = Utils.keyFromName(name);
 		this.visibleName = name.substring(0, 1).toUpperCase()
 				+ name.substring(1);

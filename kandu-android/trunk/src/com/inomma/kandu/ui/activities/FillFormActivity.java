@@ -138,7 +138,6 @@ public class FillFormActivity extends Activity {
 		// Handle action buttons
 		switch (item.getItemId()) {
 		case R.id.action_submit:
-			// create intent to perform web search for this planet
 			showSaveChoices();
 			return true;
 		case android.R.id.home:
@@ -322,7 +321,7 @@ public class FillFormActivity extends Activity {
 					public void formSubmitted(String errorMessage,FormSubmission form, Integer id) {
 						if (errorMessage == null) {
 							if (formSubmission != null
-									&& formSubmission.getId() == null
+									/*&& formSubmission.getId() == null*/
 									&& formSubmission.getUniqueId() != null) {
 								FormCacheManager.getInstance().deleteFromCache(
 										formSubmission);
