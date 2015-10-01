@@ -30,7 +30,9 @@ public class SubmissionsAutocompleteAdapter extends
 		mData = new ArrayList<FormSubmission>();
 		allData = new ArrayList<FormSubmission>();
 		this.userForm = userForm;
-		getAllData();
+		if (userForm.getForm().isCacheSubmissionsOffline()) {
+			getAllData();
+		}
 	}
 
 	@Override
