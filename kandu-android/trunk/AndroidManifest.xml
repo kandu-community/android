@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDVaZNOLY0oy7fwzTKWgZWFABpmvXnzGVI" />
+            android:value="AIzaSyD-VIY6IzSHuGCnmMtyeaQyacQeNhrpdoM" />
 
         <activity
             android:name="com.inomma.kandu.ui.activities.MainActivity"
