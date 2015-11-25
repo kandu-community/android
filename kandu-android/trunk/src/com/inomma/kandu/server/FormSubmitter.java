@@ -70,7 +70,7 @@ public class FormSubmitter {
 		for (SmallFormSubmission inlineFormSubmission : formSubmission
 				.getInlineFormSubmissions()) {
 			FormSubmissionItem formSubmissionItem = new FormSubmissionItem();
-			formSubmissionItem.setKey(formSubmission.getForm().getKey());
+			formSubmissionItem.setKey("parent");
 			formSubmissionItem.setValue(id + "");
 			inlineFormSubmission.putFormSubmissionItem(
 					formSubmissionItem.getKey(), formSubmissionItem);

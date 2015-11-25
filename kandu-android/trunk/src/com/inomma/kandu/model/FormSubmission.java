@@ -48,7 +48,8 @@ public class FormSubmission implements Serializable {
 		if (submissionJson.has("dbId")) {
 			this.dbId = submissionJson.getInt("dbId");
 		}
-		for (UserForm inline : this.form.getInlineForms()) {
+		final List<UserForm> inlinefromFrom = form.getInlineForms();
+		for (UserForm inline : inlinefromFrom) {
 			String inlineSubmissionKey = inline.getKey().toLowerCase() + "_set";
 			if (submissionJson.has(inlineSubmissionKey)) {
 				JSONArray inlineFormSubmissions = submissionJson
@@ -61,7 +62,7 @@ public class FormSubmission implements Serializable {
 					inlineFormsSmallFormSubmissions.add(inlineFormSubmission);
 				}
 			}
-			break;// TODO supports only 1 inline form
+//			break;// TODO supports only 1 inline form
 		}
 	}
 

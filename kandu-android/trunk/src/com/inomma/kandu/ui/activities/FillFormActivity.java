@@ -77,7 +77,9 @@ public class FillFormActivity extends Activity {
 	}
 
 	private void fillInlineForms() {
-		for (UserForm inline : form.getInlineForms()) {
+		int buttonTag=0;
+		final List<UserForm> inlinefromFrom = form.getInlineForms();
+		for (UserForm inline : inlinefromFrom) {
 			inlineForm = inline;
 			if (formSubmission != null) {
 				for (SmallFormSubmission inlineSmallFormSubmission : formSubmission
@@ -90,36 +92,55 @@ public class FillFormActivity extends Activity {
 					mainLayout.addView(inlineFormView);
 				}
 			}
-			if (inlineForms.size() == 0) {
+//			if (inlineForms.size() == 0) {
 				FormView inlineFormView = new FormView(this);
 				inlineFormView.setInline(true);
 
 				inlineFormView.setData(inline, null);
 				inlineForms.add(inlineFormView);
 				mainLayout.addView(inlineFormView);
-			}
+//			}
 
-			break;// TODO: supports only 1 inline form now
+//			break;// TODO: supports only 1 inline form now
+				final Button button = new Button(this);
+				button.setText("Add another");
+				mainLayout.addView(button);
+				button.setTag(buttonTag);
+				buttonTag++;
+				button.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						int clickedButtonTag=(Integer) arg0.getTag();
+						
+						FormView inlineFormView = new FormView(FillFormActivity.this);
+						inlineFormView.setInline(true);
+
+						inlineFormView.setData(inlinefromFrom.get(clickedButtonTag), null);
+						inlineForms.add(inlineFormView);
+						mainLayout.addView(inlineFormView,
+								mainLayout.indexOfChild(button));
+					}
+				});
 		}
-		Button button = new Button(this);
-		button.setText("Add another");
-		mainLayout.addView(button);
-		button.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				FormView inlineFormView = new FormView(FillFormActivity.this);
-				inlineFormView.setInline(true);
-
-				inlineFormView.setData(inlineForm, null);
-				inlineForms.add(inlineFormView);
-				mainLayout.addView(inlineFormView,
-						mainLayout.getChildCount() - 1);
-
-			}
-		});
+//		Button button = new Button(this);
+//		button.setText("Add another");
+//		mainLayout.addView(button);
+//		button.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				FormView inlineFormView = new FormView(FillFormActivity.this);
+//				inlineFormView.setInline(true);
+//
+//				inlineFormView.setData(inlineForm, null);
+//				inlineForms.add(inlineFormView);
+//				mainLayout.addView(inlineFormView,
+//						mainLayout.getChildCount() - 1);
+//
+//			}
+//		});
 		if (inlineForms.size() == 0) {
-			button.setVisibility(View.GONE);
+//			button.setVisibility(View.GONE);
 		}
 	}
 

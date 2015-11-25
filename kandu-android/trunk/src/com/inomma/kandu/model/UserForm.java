@@ -55,7 +55,7 @@ public class UserForm implements Serializable,Comparable<UserForm> {
 	}
 
 	public List<UserForm> getInlineForms() {
-		return inlineForms;
+		return this.inlineForms;
 	}
 
 	public void addInlineForm(UserForm inlineForm) {
