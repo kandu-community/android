@@ -1,11 +1,5 @@
 package com.inomma.kandu.ui.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -33,10 +27,13 @@ import com.inomma.kandu.model.UserForm;
 import com.inomma.kandu.model.UserFormsHolder;
 import com.inomma.kandu.server.FormSubmitter;
 import com.inomma.kandu.server.FormSubmitter.FormSubmissionListener;
-import com.inomma.kandu.server.request.GetSubmissionsRequest;
-import com.inomma.kandu.server.responses.GetSubmissionsResponse;
 import com.inomma.kandu.sqlite.SubmissionsDataSource;
 import com.inomma.kandu.ui.views.FormView;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FillFormActivity extends Activity {
 
@@ -84,12 +81,15 @@ public class FillFormActivity extends Activity {
 			if (formSubmission != null) {
 				for (SmallFormSubmission inlineSmallFormSubmission : formSubmission
 						.getInlineFormSubmissions()) {
-					FormView inlineFormView = new FormView(this);
-					inlineFormView.setInline(true);
+					if(inlineSmallFormSubmission.getUserForm().getKey().equals(inline.getKey())){
+						FormView inlineFormView = new FormView(this);
+						inlineFormView.setInline(true);
 
-					inlineFormView.setData(inline, inlineSmallFormSubmission);
-					inlineForms.add(inlineFormView);
-					mainLayout.addView(inlineFormView);
+						inlineFormView.setData(inline, inlineSmallFormSubmission);
+						inlineForms.add(inlineFormView);
+						mainLayout.addView(inlineFormView);
+					}
+
 				}
 			}
 //			if (inlineForms.size() == 0) {
@@ -515,6 +515,9 @@ public class FillFormActivity extends Activity {
 		for (FormView inlineFormView : inlineForms) {
 			SmallFormSubmission inlineFormSubmission = inlineFormView
 					.getSubmission(true);
+			if (inlineFormSubmission == null) {
+				return null;
+			}
 			formSubmission.addInlineSmallFormSubmission(inlineFormSubmission);
 		}
 		if (this.formSubmission != null

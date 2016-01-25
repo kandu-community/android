@@ -1,14 +1,5 @@
 package com.inomma.kandu.ui.activities;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -47,7 +38,6 @@ import com.inomma.kandu.KanduApplication;
 import com.inomma.kandu.R;
 import com.inomma.kandu.Utils;
 import com.inomma.kandu.model.Config;
-import com.inomma.kandu.model.FormCacheManager;
 import com.inomma.kandu.model.FormListCategory;
 import com.inomma.kandu.model.FormListItem;
 import com.inomma.kandu.model.FormSubmission;
@@ -67,6 +57,15 @@ import com.inomma.kandu.sqlite.SubmissionsDataSource;
 import com.inomma.kandu.ui.adapters.FormListExpandableAdapter;
 import com.inomma.kandu.ui.views.IconsView;
 import com.inomma.utils.NetworkUtils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class KanduActivity extends Activity {
 	private DrawerLayout mDrawerLayout;
@@ -282,8 +281,7 @@ public class KanduActivity extends Activity {
 							@Override
 							public void handleResponse(
 									GetUserFormsResponse response) {
-								UserFormsHolder.newInstance(config,
-										response.getUserForms());
+								UserFormsHolder.newInstance(config,response.getUserForms());
 								Log.e("KanduActivity", "syncTasksvalue: "
 										+ syncTasksCount);
 

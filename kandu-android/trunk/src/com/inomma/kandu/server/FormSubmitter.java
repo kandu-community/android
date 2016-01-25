@@ -1,12 +1,5 @@
 package com.inomma.kandu.server;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 
 import com.inomma.kandu.model.FormItem;
@@ -17,6 +10,13 @@ import com.inomma.kandu.model.SmallFormSubmission;
 import com.inomma.kandu.model.UserFormsHolder;
 import com.inomma.kandu.server.request.SubmitFormRequest;
 import com.inomma.kandu.server.responses.SubmitFormResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FormSubmitter {
 
@@ -66,7 +66,7 @@ public class FormSubmitter {
 				}).execute();
 	}
 
-	private void submitInlines(Integer id) {
+	private void submitInlines(final Integer id) {
 		for (SmallFormSubmission inlineFormSubmission : formSubmission
 				.getInlineFormSubmissions()) {
 			FormSubmissionItem formSubmissionItem = new FormSubmissionItem();
@@ -82,7 +82,7 @@ public class FormSubmitter {
 						public void handleResponse(SubmitFormResponse response) {
 							if (response.id != null) {
 								listener.formSubmitted(null, formSubmission,
-										response.id);
+										id);
 							} else {
 								listener.formSubmitted("Server error",
 										formSubmission, null);

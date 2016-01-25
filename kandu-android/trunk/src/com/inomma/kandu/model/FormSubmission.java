@@ -1,18 +1,14 @@
 package com.inomma.kandu.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.inomma.kandu.ui.views.FormItemFileView;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FormSubmission implements Serializable {
 
@@ -182,7 +178,9 @@ public class FormSubmission implements Serializable {
 		}
 		JSONArray inlineArray = new JSONArray();
 		for (SmallFormSubmission inlineFormSubmission : inlineFormsSmallFormSubmissions) {
-			inlineArray.put(inlineFormSubmission.toJson());
+			if (inlineFormSubmission != null) {
+				inlineArray.put(inlineFormSubmission.toJson());
+			}
 		}
 		jsonObject.put("inlineSubmissions", inlineArray);
 		return jsonObject;

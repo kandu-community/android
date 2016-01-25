@@ -1,8 +1,5 @@
 package com.inomma.kandu.ui.views;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.widget.ArrayAdapter;
@@ -16,6 +13,9 @@ import com.inomma.kandu.server.request.GetSubmissionsRequest;
 import com.inomma.kandu.server.responses.GetSubmissionsResponse;
 import com.inomma.kandu.sqlite.SubmissionsDataSource;
 import com.inomma.utils.NetworkUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubmissionsAutocompleteAdapter extends
 		ArrayAdapter<FormSubmission> implements Filterable {

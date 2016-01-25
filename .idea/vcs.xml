@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/kandu-android/3rdparty/Utils" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/kandu-android/3rdparty/google-play-services_lib" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/kandu-android/trunk" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+  </component>
+</project>

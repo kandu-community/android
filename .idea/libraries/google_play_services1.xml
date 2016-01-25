@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="google-play-services1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/kandu-android/3rdparty/google-play-services_lib/libs/google-play-services.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

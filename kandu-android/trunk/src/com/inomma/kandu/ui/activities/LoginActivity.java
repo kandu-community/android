@@ -1,8 +1,5 @@
 package com.inomma.kandu.ui.activities;
 
-import java.io.File;
-import java.io.FileWriter;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -11,7 +8,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -22,19 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
-import com.google.gson.JsonObject;
 import com.inomma.SharedPreferencesHelper;
 import com.inomma.kandu.KanduApplication;
 import com.inomma.kandu.R;
 import com.inomma.kandu.server.MainSender;
 import com.inomma.kandu.server.ResponseHandler;
-import com.inomma.kandu.server.request.GetIconsRequest;
 import com.inomma.kandu.server.request.GetTokenRequest;
-import com.inomma.kandu.server.responses.GetIconsResponse;
 import com.inomma.kandu.server.responses.GetTokenResponse;
-import com.inomma.kandu.ui.views.IconsView;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -92,7 +82,7 @@ public class LoginActivity extends Activity {
 						return false;
 					}
 				});
- 
+
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
@@ -106,13 +96,10 @@ public class LoginActivity extends Activity {
 				});
 		serverUrl.setText(SharedPreferencesHelper.getStringData(
 				"server_url", "http://partnerfarmer.kandu.co.za"));
-		mEmailView.setText(SharedPreferencesHelper.getStringData("username",
-				""));
-		//mEmailView.setText("narek");
-	//	mPasswordView.setText("9ijnbhu8");
-		;
+		mEmailView.setText(SharedPreferencesHelper.getStringData("username", ""));
 		if (SharedPreferencesHelper.getStringData("token", null) != null) {
-			startActivity(new Intent(LoginActivity.this, KanduActivity.class)); 
+			startActivity(new Intent(LoginActivity.this, KanduActivity.class));
+			finish();
 		}
 
 	} 

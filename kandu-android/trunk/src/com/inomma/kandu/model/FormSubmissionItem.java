@@ -1,9 +1,9 @@
 package com.inomma.kandu.model;
 
-import java.io.Serializable;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.Serializable;
 
 public class FormSubmissionItem implements Serializable{
 

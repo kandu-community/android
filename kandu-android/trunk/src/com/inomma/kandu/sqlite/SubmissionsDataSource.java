@@ -1,12 +1,5 @@
 package com.inomma.kandu.sqlite;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Comment;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,6 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.inomma.kandu.model.Form;
 import com.inomma.kandu.model.FormSubmission;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubmissionsDataSource {
 
@@ -74,6 +73,8 @@ public class SubmissionsDataSource {
 
 		Cursor cursor = database.query(form.getKey(), allColumns, searchText!=null?KanduSQLiteHelper.COLUMN_LABEL_FIELD+" LIKE '%"+searchText+"%'":null, null,
 				null, null, null);
+
+
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {

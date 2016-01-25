@@ -1,17 +1,7 @@
 package com.inomma.kandu.ui.activities;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,7 +16,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import br.com.thinkti.android.filechooser.FileChooser;
 
 import com.flurry.android.FlurryAgent;
 import com.inomma.SharedPreferencesHelper;
@@ -42,6 +31,17 @@ import com.inomma.kandu.server.request.GetSubmissionsRequest;
 import com.inomma.kandu.server.responses.GetSubmissionsResponse;
 import com.inomma.kandu.ui.views.FormItemAutocompleteView;
 import com.inomma.kandu.ui.views.FormItemAutocompleteView.ItemSelectedListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.thinkti.android.filechooser.FileChooser;
 
 public class SubmissionsActivity extends Activity {
 	private UserForm userForm;

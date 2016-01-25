@@ -2,9 +2,7 @@ package com.inomma.kandu.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UserFormsHolder {
 
@@ -17,7 +15,7 @@ public class UserFormsHolder {
 
 	public static void newInstance(Config config, List<UserForm> userForms) {
 		instance = new UserFormsHolder();
-		instance.userForms = new ArrayList<UserForm>(userForms); 
+		instance.userForms = new ArrayList<UserForm>(userForms);
 		List<UserForm> inlineForms = new ArrayList<UserForm>(); 
 		for (UserForm userForm : instance.userForms) {
 			Form form = config.getForms().get(userForm.getKey());

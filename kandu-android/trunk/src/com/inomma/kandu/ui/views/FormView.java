@@ -1,14 +1,10 @@
 package com.inomma.kandu.ui.views;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,6 +18,11 @@ import com.inomma.kandu.model.SmallFormSubmission;
 import com.inomma.kandu.model.UserForm;
 import com.inomma.kandu.model.UserFormsHolder;
 import com.inomma.utils.location.AdvancedLocationManager;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FormView extends LinearLayout {
 
@@ -49,6 +50,7 @@ public class FormView extends LinearLayout {
 
 	private void fillContent() {
 		setOrientation(VERTICAL);
+		setMotionEventSplittingEnabled(false);
 	}
 
 	public void setData(UserForm userForm,
@@ -137,8 +139,9 @@ public class FormView extends LinearLayout {
 		if (smallFormSubmission != null && view != null) {
 			FormSubmissionItem formSubmissionItem = smallFormSubmission
 					.getFormSubmissionItem(item.getKey());
-			if (formSubmissionItem != null)
+			if (formSubmissionItem != null && !TextUtils.isEmpty(formSubmissionItem.getValue())) {
 				view.setValue(formSubmissionItem);
+			}
 		}
 
 		return view;
@@ -222,7 +225,9 @@ public class FormView extends LinearLayout {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		try {
 			FormItemFileView view = (FormItemFileView) findViewById(requestCode);
-			view.onActivityResult(requestCode, resultCode, data);
+			if (view != null) {
+				view.onActivityResult(requestCode, resultCode, data);
+			}
 		} catch (ClassCastException e) {
 
 		}

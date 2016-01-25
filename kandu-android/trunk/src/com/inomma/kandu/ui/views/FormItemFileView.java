@@ -1,7 +1,5 @@
 package com.inomma.kandu.ui.views;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,6 +11,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +22,8 @@ import android.widget.LinearLayout;
 import com.inomma.kandu.Utils;
 import com.inomma.kandu.model.FormItem;
 import com.inomma.kandu.model.FormSubmissionItem;
+
+import java.io.File;
 
 public class FormItemFileView extends FormItemView {
 
@@ -81,6 +82,9 @@ public class FormItemFileView extends FormItemView {
 	public void setValue(FormSubmissionItem value) {
 		try {
 			String path = value.getValue();
+			if (TextUtils.isEmpty(path) || path.equals("null")) {
+				return;
+			}
 			this.file = new File(path);
 			Bitmap bm = Utils.decodeSampledBitmapFromFile(file, 200, 200);
 			bm = Utils.decodeSampledBitmapFromFile(file, 200, 200);

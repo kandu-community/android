@@ -1,23 +1,22 @@
 package com.inomma.kandu.model;
 
+import android.app.Activity;
+import android.content.res.Resources;
+
+import com.inomma.SharedPreferencesHelper;
+import com.inomma.kandu.R;
+import com.inomma.kandu.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.res.Resources;
-import android.os.Environment;
-
-import com.inomma.SharedPreferencesHelper;
-import com.inomma.kandu.R;
-import com.inomma.kandu.Utils;
 
 public class FormCacheManager {
 

@@ -1,9 +1,5 @@
 package com.inomma.kandu.server.request;
 
-import java.util.List;
-
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.content.Context;
 
@@ -14,6 +10,10 @@ import com.inomma.kandu.server.ResponseHandler;
 import com.inomma.kandu.server.responses.GetSubmissionsResponse;
 import com.inomma.kandu.sqlite.SubmissionsDataSource;
 import com.inomma.utils.NetworkUtils;
+
+import org.json.JSONException;
+
+import java.util.List;
 
 public class GetSubmissionsRequest extends Request<GetSubmissionsResponse> {
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/File Chooser/File Chooser.iml" filepath="$PROJECT_DIR$/File Chooser/File Chooser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KanduDataRestoreTool/KanduDataRestoreTool.iml" filepath="$PROJECT_DIR$/KanduDataRestoreTool/KanduDataRestoreTool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kandu-android/3rdparty/Utils/Utils.iml" filepath="$PROJECT_DIR$/kandu-android/3rdparty/Utils/Utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Utils/Utils1.iml" filepath="$PROJECT_DIR$/Utils/Utils1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appcompat_v7/appcompat_v7.iml" filepath="$PROJECT_DIR$/appcompat_v7/appcompat_v7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/google-play-services_lib/google-play-services_lib.iml" filepath="$PROJECT_DIR$/google-play-services_lib/google-play-services_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kandu-android/3rdparty/google-play-services_lib/google-play-services_lib1.iml" filepath="$PROJECT_DIR$/kandu-android/3rdparty/google-play-services_lib/google-play-services_lib1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kandu-android/trunk/trunk.iml" filepath="$PROJECT_DIR$/kandu-android/trunk/trunk.iml" />
+    </modules>
+  </component>
+</project>
