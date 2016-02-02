@@ -3,10 +3,12 @@ package com.inomma.kandu.ui.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -281,7 +283,8 @@ public class KanduActivity extends Activity {
 							@Override
 							public void handleResponse(
 									GetUserFormsResponse response) {
-								UserFormsHolder.newInstance(config,response.getUserForms());
+								UserFormsHolder.newInstance(config,
+										response.getUserForms());
 								Log.e("KanduActivity", "syncTasksvalue: "
 										+ syncTasksCount);
 
@@ -466,6 +469,10 @@ public class KanduActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
+		if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			return;
+		}
 		new GetSubmissionsRequest(this, userForm, userForm.getUrl(), 10000, map
 				.getMyLocation().getLatitude(), map.getMyLocation()
 				.getLongitude(), new ResponseHandler<GetSubmissionsResponse>() {

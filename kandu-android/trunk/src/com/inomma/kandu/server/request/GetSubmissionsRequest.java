@@ -65,7 +65,7 @@ public class GetSubmissionsRequest extends Request<GetSubmissionsResponse> {
 		} else if (radius != null) {
 			return String.format(formUrl
 					+ "inRadius?lat=%.8f&long=%.8f&radius=%d", latitude,
-					longitude, radius);
+					longitude, radius) + "&page_size=10000";
 		} else {
 			return formUrl + "?page_size=10000";
 		}
