@@ -1,5 +1,18 @@
 package com.inomma.kandu;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.inomma.kandu.model.FormListCategory;
+import com.inomma.kandu.model.FormListItem;
+import com.inomma.kandu.model.UserForm;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,19 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import com.inomma.kandu.model.FormListCategory;
-import com.inomma.kandu.model.FormListItem;
-import com.inomma.kandu.model.UserForm;
 
 public class Utils {
 
